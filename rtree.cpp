@@ -1,40 +1,19 @@
-#include <iostream>
-#include <vector>
-
-#include "file_manager.h";
-#include "errors.h";
+#include "rtree.h";
 
 using namespace std;
 
-// Type Aliases 
-using ID = int;
-using Point = vector<int>;
-using MaximumBoundingRegion = pair<Point,Point>;
-using NodeInfo = pair<ID,MaximumBoundingRegion>;
-using Children = vector<NodeInfo>;
+int main(int argc, char const *argv[])
+{
+    if(argc < 5)
+        return EXIT_FAILURE; // IF Number of Arguments is less than 5 we have a problem
+    
+    // Process Command Line Arguments
+    string query_filename = argv[1]; // First Argument is Query Files
+    MAX_CAP = atoi(argv[2]); // Second Argument is maxCap
+    DIMENSION = atoi(argv[3]); // Third Argument is Number of Dimension d
+    string output_filename = argv[4]; // Fourth Argument is output filename
 
-// Global Constants (CAPITALIZED)
-int INT_SIZE = sizeof(int);
-int MAX_CAP;
-int DIMENSION;
-
-
-class Node {
-    private:
-        ID id;
-        ID parent_id;
-        MaximumBoundingRegion mbr;
-        Children children;
-        bool is_leaf;
-
-
-    public:
-        // Node Specific Constants
-        static const int ROOT_PARENT_ID = -1;
-        static const int LEAF_CHILD_ID = -1;
-
-        
-        Node(ID id_, vector<MaximumBoundingRegion> child_mbrs, bool is_leaf_=false): id(id_), parent_id(ROOT_PARENT_ID), is_leaf(is_leaf_) {
-
-        }
-};
+    
+    
+    return EXIT_SUCCESS;
+}
