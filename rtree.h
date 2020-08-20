@@ -1,10 +1,12 @@
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <vector>
 
-#include "file_manager.h";
-#include "errors.h";
+#include "file_manager.h"
+#include "errors.h"
 
 using namespace std;
 
@@ -40,3 +42,16 @@ class Node {
 
         }
 };
+
+enum Command {Bulkload, Insert, Query, Error}; // 3 Commands which will be in Query File and one Error Command
+
+Command string_to_command(string command){
+    if (command == "BULKLOAD")
+        return Command::Bulkload;
+    else if (command == "INSERT")
+        return Command::Insert;
+    else if (command == "QUERY")
+        return Command::Query;
+    else
+        return Command::Error;
+}
