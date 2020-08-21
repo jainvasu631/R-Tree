@@ -15,10 +15,10 @@ int main(int argc, char const *argv[])
 
     fstream query_file, output_file;
     query_file.open(query_filename,ios::in); // Input File to fetch commands
-    query_file.open(output_filename,ios::out); // Output File to write output
+    output_file.open(output_filename,ios::out); // Output File to write output
 
     string line;
-    
+    const string newlines = "\n\n\n"; // To be outputteed after every command result
     // Query Processing Loop
     while (getline(query_file, line)){
         istringstream iss(line);
@@ -27,20 +27,32 @@ int main(int argc, char const *argv[])
         Command command = string_to_command(command_word); // Enum Version of Command Word
         
         // Depending on what command is we process it
-        switch (command){
-            case Command::Bulkload:
-                /* code */
-                break;
-            case Command::Insert:
-                /* code */
-                break;
-            case Command::Query:
-                /* code */
-                break;
-            
-            default: // Error Case
-                break;
+        if(command == Command::Bulkload){
+            string sorted_filename;
+            int num_points;
+            iss >> sorted_filename >> num_points;
+            // Do Bulkload 
+            output_file << command_word << newlines;
+        } else if(command == Command::Insert){
+            Point point(DIMENSION);
+            for (auto &&coordinate : point){
+                iss >> coordinate;
+            }
+            // Do Insert    
+            output_file << command_word << newlines;
+        } else if(command == Command::Query){
+            Point point(DIMENSION);
+            for (auto &&coordinate : point){
+                iss >> coordinate;
+            }
+            // Do Query
+            bool success;
+            string result = success? "TRUE" : "FALSE";
+            output_file << success << newlines;
+        } else {
+            // Throw Wrong Command Errors
         }
+        
     }    
 
     return EXIT_SUCCESS;
